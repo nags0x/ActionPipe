@@ -1,45 +1,149 @@
-# screenpipe playground
+# 🔍 OCR-Agent Avatar – Speak Your Errors
 
-a flexible playground for displaying, testing, and exploring components with their associated code, documentation, and ai prompts.
+A 3D AI avatar that watches your screen, reads developer error messages via OCR, and speaks them out loud in a human-like voice — helping you debug faster and stay in flow.
 
-<!-- <img width="1312" alt="screenshot of component playground" src="https://github.com/user-attachments/assets/3e5abd07-0a3c-4c3b-8351-5107beb4fb10"> -->
+## 🔥 Overview
 
-## components listed
+This project creates an intelligent debugging assistant that uses ScreenPipe's OCR capabilities to detect and explain errors in real-time, presented through an engaging 3D avatar interface.
 
-- health status check
-- latest UI record
-- latest OCR record
-- latest audio transcription
-- screen streaming
-- audio streaming
+## 💡 Key Features
 
-## features
+### 🧠 AI Avatar as Debug Assistant
+- 3D avatar that explains errors
+- Real-time error detection
+- Human-like voice explanations
+- Expressive gestures and animations
 
-- **interactive component display**: view rendered components in action
-- **code inspection**: examine the full source code of each component
-- **raw output**: see the raw api responses and data
-- **ai prompt visibility**: view the prompts and context used to generate components
-- **collapsible interface**: toggle component visibility for a cleaner workspace
+### 📺 ScreenPipe Integration
+- OCR for error message detection
+- Focus on key error zones:
+  - Terminal
+  - Browser devtools
+  - IDE error overlays
+- Real-time text extraction
 
-## usage
+### 🗣️ Smart Error Processing
+- Error pattern recognition
+- Stack trace parsing
+- Build output analysis
+- Runtime error detection
 
-the playground allows you to:
+### 🎯 Developer Experience
+- Flow-state preservation
+- Voice command support
+- Error history tracking
+- Team collaboration features
 
-1. view rendered components in their intended state
-2. inspect the raw output from api calls
-3. study the complete component code
-4. examine the ai prompts and context used to generate components
+## 🧱 Architecture
 
-## component structure
+```
+[Developer Screen]
+       ↓
+  ScreenPipe SDK
+       ↓
+[OCR Agent Daemon]
+       ↓
+[Error Processing] ←→ [LLM / Rule Engine]
+       ↓
+[Avatar Engine]
+       ↓
+3D Avatar + Voice + Gesture
+```
 
-each playground card includes:
-- component title and collapsible interface
-- tabs for different views (rendered output, raw output, code, ai prompt)
-- copy functionality for sharing prompts and context
+## 🌐 Tech Stack
 
-## getting started
+| Layer | Tech |
+|-------|------|
+| Frontend | Next.js (SSR-ready) |
+| Avatar Engine | Ready Player Me / DeepMotion |
+| AI/Logic | OpenAI / Local LLM |
+| Data Extract | ScreenPipe SDK |
+| TTS | ElevenLabs / Web Speech API |
+| 3D Rendering | Babylon.js / Three.js |
 
-1. install this pipe from UI and play with it
-2. follow docs to create your pipe (it will create this app) (https://docs.screenpi.pe/plugins)
-3. modify code from ready-to-use-examples directory
+## 📦 Use Cases
+
+- Solo Developers
+- Development Teams
+- Accessibility Workflows
+- Hacker Events & Demos
+- Educational Settings
+
+## 🧠 Example Behaviors
+
+- Terminal Error → Avatar: "I see a TypeError in your React component..."
+- Build Error → Avatar waves hands: "Your Webpack build failed because..."
+- Runtime Error → Avatar tilts head: "There's an undefined variable in..."
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/ocr-agent-avatar.git
+   cd ocr-agent-avatar
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env.local
+   ```
+   Add your API keys to `.env.local`:
+   ```
+   SCREENPIPE_API_KEY=your_key_here
+   OPENAI_API_KEY=your_key_here
+   ELEVENLABS_API_KEY=your_key_here
+   ```
+
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+## 🏗️ Project Structure
+
+```
+.
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── page.tsx           # Main landing page
+│   │   └── debug/             # Debug interface
+│   ├── components/            # React components
+│   │   ├── avatar/           # Avatar components
+│   │   │   ├── Debugger.tsx  # Main debug avatar
+│   │   │   ├── Gestures.tsx  # Avatar animations
+│   │   │   └── Console.tsx   # Error display
+│   │   └── ui/              # Shared UI components
+│   ├── lib/                  # Core utilities
+│   │   ├── screenpipe/      # ScreenPipe integration
+│   │   ├── ocr/            # OCR processing
+│   │   ├── avatar/         # Avatar engine
+│   │   └── ai/             # AI/LLM integration
+│   └── hooks/               # Custom React hooks
+│       ├── useDebugger.ts   # Debug state
+│       ├── useErrors.ts     # Error tracking
+│       └── useVoice.ts      # Voice commands
+├── public/                  # Static assets
+└── scripts/                # Utility scripts
+```
+
+## 🔄 Optional Features
+
+- Error log export to Notion/GDocs
+- Voice command support
+- GitHub Copilot integration
+- Multilingual error support
+- Team collaboration via Slack/Discord
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 

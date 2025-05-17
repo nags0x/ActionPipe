@@ -11,6 +11,8 @@ import {
   AIPresetsDialog,
 } from "@/components/ai-presets-dialog";
 import { AIPresetsSelector } from "@/components/ai-presets-selector";
+import { Debugger } from '@/components/avatar/Debugger';
+import { useOCR } from '@/hooks/useOCR';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,6 +33,7 @@ function isMacOS() {
 export default function Page() {
   const [pipes, setPipes] = useState<Pipe[]>([]);
   const [loading, setLoading] = useState(true);
+  const { errorText, explanation, isProcessing } = useOCR();
 
   useEffect(() => {
     fetch("https://screenpi.pe/api/plugins/registry")
@@ -114,6 +117,16 @@ export default function Page() {
                 ))}
               </div>
             )}
+          </div>
+
+          <Debugger
+            errorText={errorText || undefined}
+            explanation={explanation || undefined}
+            isSpeaking={isProcessing}
+          />
+
+          <div className="text-center text-sm text-muted-foreground">
+            {isProcessing ? 'Processing error...' : 'Watching for errors...'}
           </div>
         </div>
       </ClientOnly>
