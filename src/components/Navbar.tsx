@@ -15,7 +15,7 @@ const Navbar = () => {
       <div className="flex items-center gap-4">
         <Button 
           variant="ghost" 
-          className="text-black hover:bg-blue-50/50 font-inter font-light" 
+          className="text-black hover:bg-blue-50/50 font-inter font-light rounded-3xl" 
           asChild
         >
           <Link to="/app">Try Now</Link>
