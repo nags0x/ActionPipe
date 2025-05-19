@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import ApiInputDialog from "@/components/ApiInputDialog";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { FlipWords } from "@/components/ui/flip-words";
+import { TextHoverEffect } from "@/components/ui/text-hover-effect";
 
 const LandingPage = () => {
   const [isApiDialogOpen, setIsApiDialogOpen] = useState(false);
@@ -123,12 +124,15 @@ const LandingPage = () => {
         open={isApiDialogOpen} 
         onOpenChange={setIsApiDialogOpen} 
       />
-      <div className="-mt-16">
-        <img
-          src="./nothing.png"
-          className="invert dark:invert-0"
-        />
-      </div>
+      
+      <footer className="w-full overflow-hidden">
+        <div className="h-[40vh] w-full max-w-[90vw] mx-auto">
+          <TextHoverEffect
+            text="Action Pipe"
+            duration={0.3}
+          />
+        </div>
+      </footer>
     </div>
   );
 };
