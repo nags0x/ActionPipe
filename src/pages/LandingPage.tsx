@@ -12,7 +12,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 text-black dark:text-white flex flex-col relative overflow-hidden transition-colors duration-200">
       {/* Shooting Stars Background */}
-      <ShootingStars className="opacity-30 [&>div]:bg-black dark:[&>div]:bg-white" />
+      <ShootingStars className="opacity-30" />
       
       {/* Background blur with subtle shade */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -20,6 +20,7 @@ const LandingPage = () => {
         <div className="absolute bottom-1/3 -right-24 w-96 h-96 bg-gray-100/40 dark:bg-gray-700/40 rounded-full blur-3xl opacity-50 animate-pulse-soft"></div>
         <div className="absolute bottom-20 left-40 w-32 h-32 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20"></div>
         <div className="absolute top-40 right-20 w-24 h-24 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50 dark:from-transparent dark:via-gray-800/50 dark:to-gray-900/50"></div>
       </div>
       
       <Navbar />

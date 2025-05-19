@@ -13,7 +13,7 @@ export const ShootingStars = ({
 
     const createStar = () => {
       const star = document.createElement("div");
-      star.className = "absolute w-1 h-1 bg-white rounded-full";
+      star.className = "absolute w-1 h-1 rounded-full";
       
       // Random starting position
       const startX = Math.random() * window.innerWidth;
@@ -23,12 +23,16 @@ export const ShootingStars = ({
       const angle = Math.random() * Math.PI * 2;
       const length = 100 + Math.random() * 200;
       
+      // Get current theme
+      const isDark = document.documentElement.classList.contains('dark');
+      const starColor = isDark ? '255, 255, 255' : '37, 99, 235'; // white for dark theme, blue-600 for light theme
+      
       star.style.left = `${startX}px`;
       star.style.top = `${startY}px`;
       star.style.transform = `rotate(${angle}rad)`;
       star.style.width = `${length}px`;
       star.style.height = "2px";
-      star.style.background = "linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 50%, rgba(255,255,255,0) 100%)";
+      star.style.background = `linear-gradient(90deg, rgba(${starColor},0) 0%, rgba(${starColor},1) 50%, rgba(${starColor},0) 100%)`;
       
       container.appendChild(star);
       
