@@ -10,14 +10,16 @@ const LandingPage = () => {
   const [isApiDialogOpen, setIsApiDialogOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-900 to-black text-white flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 text-black dark:text-white flex flex-col relative overflow-hidden transition-colors duration-200">
       {/* Shooting Stars Background */}
-      <ShootingStars className="opacity-30" />
+      <ShootingStars className="opacity-30 [&>div]:bg-black dark:[&>div]:bg-white" />
       
-      {/* Background blur with blue shade, only affecting background */}
+      {/* Background blur with subtle shade */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-blue-50/20 rounded-full blur-3xl opacity-70 animate-pulse-soft"></div>
-        <div className="absolute bottom-1/4 -right-24 w-96 h-96 bg-blue-50/20 rounded-full blur-3xl opacity-90 animate-pulse-soft"></div>
+        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-gray-100/40 dark:bg-gray-700/40 rounded-full blur-3xl opacity-50 animate-pulse-soft"></div>
+        <div className="absolute bottom-1/3 -right-24 w-96 h-96 bg-gray-100/40 dark:bg-gray-700/40 rounded-full blur-3xl opacity-50 animate-pulse-soft"></div>
+        <div className="absolute bottom-20 left-40 w-32 h-32 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20" style={{ animationDelay: '2s' }}></div>
       </div>
       
       <Navbar />
@@ -26,52 +28,52 @@ const LandingPage = () => {
         <div className="max-w-4xl w-full mx-auto text-center space-y-8">
           <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.2s' }}>
             <h1 className="text-5xl sm:text-7xl font-bold tracking-tight">
-              <span className="font-playfair italic font-light text-white">
+              <span className="font-playfair italic font-light text-gray-900 dark:text-white">
                 Real Conversations.
               </span>
               <br />
-              <span className="font-inter font-extralight mt-2 block text-gray-200">Virtual Avatar.</span>
+              <span className="font-inter font-extralight mt-2 block text-gray-800 dark:text-gray-200">Virtual Avatar.</span>
             </h1>
           </div>
           
           <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.4s' }}>
-            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto font-inter font-thin">
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-inter font-thin">
               Experience natural conversations with our AI avatar technology. Minimalist design, maximum impact.
             </p>
           </div>
           
-          {/* Features Section with clean white cards (no blue tint) */}
+          {/* Features Section with clean white cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 animate-fade-in opacity-0" style={{ animationDelay: '0.6s' }}>
-            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-800 bg-gray-900/50">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-gray-50/5 opacity-50 rounded-xl"></div>
+            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80">
+              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
-                <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-200">01</span>
+                <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">01</span>
                 </div>
-                <h3 className="font-playfair italic text-xl mb-2 text-white">Lifelike Interaction</h3>
-                <p className="font-inter text-sm font-light text-gray-400">Natural conversations with responsive AI technology.</p>
+                <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Lifelike Interaction</h3>
+                <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Natural conversations with responsive AI technology.</p>
               </div>
             </div>
             
-            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-800 bg-gray-900/50">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-gray-50/5 opacity-50 rounded-xl"></div>
+            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80">
+              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
-                <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-200">02</span>
+                <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">02</span>
                 </div>
-                <h3 className="font-playfair italic text-xl mb-2 text-white">Minimalist Design</h3>
-                <p className="font-inter text-sm font-light text-gray-400">Clean aesthetics for distraction-free experiences.</p>
+                <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Minimalist Design</h3>
+                <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Clean aesthetics for distraction-free experiences.</p>
               </div>
             </div>
             
-            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-800 bg-gray-900/50">
-              <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-gray-50/5 opacity-50 rounded-xl"></div>
+            <div className="relative hover:scale-105 transition-transform duration-300 p-6 rounded-xl backdrop-blur-sm border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/80">
+              <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
-                <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-200">03</span>
+                <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">03</span>
                 </div>
-                <h3 className="font-playfair italic text-xl mb-2 text-white">Intuitive Controls</h3>
-                <p className="font-inter text-sm font-light text-gray-400">Seamless experience with simple, accessible controls.</p>
+                <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Intuitive Controls</h3>
+                <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Seamless experience with simple, accessible controls.</p>
               </div>
             </div>
           </div>
@@ -79,7 +81,7 @@ const LandingPage = () => {
           <div className="mt-12 flex flex-col sm:flex-row gap-6 justify-center animate-fade-in opacity-0" style={{ animationDelay: '0.8s' }}>
             <Button 
               size="lg" 
-              className="bg-white text-black hover:bg-white/90 rounded-full px-8 text-lg gap-2 group font-inter font-light"
+              className="bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-full px-8 text-lg gap-2 group font-inter font-light"
               onClick={() => setIsApiDialogOpen(true)}
             >
               <Play className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
@@ -89,7 +91,7 @@ const LandingPage = () => {
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-white/20 text-white hover:bg-white/5 rounded-full px-8 text-lg group font-inter font-light"
+              className="border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full px-8 text-lg group font-inter font-light"
               asChild
             >
               <Link to="/app">
