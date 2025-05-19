@@ -25,9 +25,16 @@ const LandingPage = () => {
       </div>
       
       <Navbar />
-      
+
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-28 z-10">
         <div className="max-w-4xl w-full mx-auto text-center space-y-8">
+        <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.5s' }}>
+            <img 
+              src="/logo.png" 
+              alt="ActionPipe Logo" 
+              className="w-48 h-48 mx-auto object-contain rounded-xl shadow-xl"
+            />
+          </div>
           <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.2s' }}>
             <h1 className="text-5xl sm:text-7xl font-bold tracking-tight">
               <span className="font-playfair italic font-light text-gray-900 dark:text-white">
