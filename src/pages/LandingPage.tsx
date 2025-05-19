@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import { Play, ArrowRight } from "lucide-react";
+import { Play, ArrowRight, Speech, SquareMousePointer, Move } from "lucide-react";
 import { Link } from "react-router-dom";
 import ApiInputDialog from "@/components/ApiInputDialog";
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -56,7 +56,7 @@ const LandingPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
                 <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">01</span>
+                  <Speech className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300"></Speech>
                 </div>
                 <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Lifelike Interaction</h3>
                 <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Natural conversations with responsive AI technology.</p>
@@ -67,7 +67,7 @@ const LandingPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
                 <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">02</span>
+                  <SquareMousePointer className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300"></SquareMousePointer>
                 </div>
                 <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Minimalist Design</h3>
                 <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Clean aesthetics for distraction-free experiences.</p>
@@ -78,7 +78,7 @@ const LandingPage = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50/50 dark:from-gray-800 dark:to-gray-700/50 opacity-50 rounded-xl"></div>
               <div className="relative">
                 <div className="w-12 h-12 bg-gray-50 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4 mx-auto">
-                  <span className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300">03</span>
+                  <Move className="font-playfair italic text-xl font-light text-gray-700 dark:text-gray-300"></Move>
                 </div>
                 <h3 className="font-playfair italic text-xl mb-2 text-gray-900 dark:text-white">Intuitive Controls</h3>
                 <p className="font-inter text-sm font-light text-gray-600 dark:text-gray-400">Seamless experience with simple, accessible controls.</p>
