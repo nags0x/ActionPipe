@@ -123,6 +123,12 @@ const LandingPage = () => {
         open={isApiDialogOpen} 
         onOpenChange={setIsApiDialogOpen} 
       />
+      <div className="-mt-16">
+        <img
+          src="./nothing.png"
+          className="invert dark:invert-0"
+        />
+      </div>
     </div>
   );
 };
