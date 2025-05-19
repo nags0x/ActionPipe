@@ -5,6 +5,7 @@ import { Play, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import ApiInputDialog from "@/components/ApiInputDialog";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import { FlipWords } from "@/components/ui/flip-words";
 
 const LandingPage = () => {
   const [isApiDialogOpen, setIsApiDialogOpen] = useState(false);
@@ -33,7 +34,13 @@ const LandingPage = () => {
                 Real Conversations.
               </span>
               <br />
-              <span className="font-inter font-extralight mt-2 block text-gray-800 dark:text-gray-200">Virtual Avatar.</span>
+              <span className="font-inter font-extralight mt-2 block text-gray-800 dark:text-gray-200">
+                <FlipWords 
+                  words={["Virtual Avatar.", "AI Companion.", "Smart Assistant.", "Online Girlfriend"]} 
+                  duration={2500}
+                  className="text-gray-800 dark:text-gray-200"
+                />
+              </span>
             </h1>
           </div>
           
