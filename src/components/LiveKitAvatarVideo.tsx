@@ -463,9 +463,9 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
       {/* Logo button in top left corner */}
       <div className="absolute top-4 left-4 z-50 border-none rounded-full">
         <Button 
-          variant="ghost"
+          variant="outline"
           size="icon" 
-          className="w-12 h-12 rounded-full border-none hover:bg-"
+          className="w-10 h-10 rounded-full bg-white/10 border-none border text-black hover:bg-black/5 hover:text-black"
           asChild
           aria-label="Go to home page"
         >

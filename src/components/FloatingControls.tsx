@@ -101,31 +101,6 @@ const FloatingControls = ({
             variant="outline" 
             size="icon" 
             className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
-            onClick={handleTalk}
-            aria-label="Talk to avatar"
-          >
-            <div className="relative">
-              <Mic className={`h-7 w-7 ${isListening ? 'text-blue-400' : ''}`} />
-              {isListening && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-400 rounded-full animate-pulse"></div>
-              )}
-            </div>
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
-            onClick={handleRepeat}
-            aria-label="Make avatar repeat"
-          >
-            <Repeat className="h-7 w-7" />
-          </Button>
-          
-          <Button 
-            variant="outline" 
-            size="icon" 
-            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
             onClick={handleClose}
             aria-label="Close avatar"
           >
