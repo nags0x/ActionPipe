@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import HeyGenStreaming from "@/components/HeyGenStreaming";
+import LiveKitAvatarVideo from "@/components/LiveKitAvatarVideo";
 import GitHubLink from "@/components/GitHubLink";
 
 const Index = () => {
@@ -25,10 +24,11 @@ const Index = () => {
     <div className="relative">
       {/* Avatar video takes up the full viewport */}
       {apiKey && (
-        <HeyGenStreaming 
-          apiKey={apiKey}
+        <LiveKitAvatarVideo 
+          token={apiKey}
           avatarId="Wayne_20240711"
-          voiceId="f772a099cbb7421eb0176240c611fc43" // Use your voice ID
+          voiceId="f772a099cbb7421eb0176240c611fc43"
+          language="en-US"
         />
       )}
       

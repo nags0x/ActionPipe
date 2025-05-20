@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Play, X, Mic, Repeat, MessageSquare, Video, VideoOff, MicOff } from "lucide-react";
+import FloatingControls from "./FloatingControls";
 
 interface LiveKitAvatarVideoProps {
   token: string;
@@ -14,6 +17,11 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
   const [isLoading, setIsLoading] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [showChat, setShowChat] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [isVideoOff, setIsVideoOff] = useState(false);
+  const [chatMessages, setChatMessages] = useState<Array<{ type: 'user' | 'avatar', text: string }>>([]);
+  const [chatInput, setChatInput] = useState("");
   
   // Session state
   const [sessionInfo, setSessionInfo] = useState<any>(null);
@@ -364,33 +372,162 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
     sendText("Could you please repeat that?", "repeat");
   };
 
+  const sendChatMessage = async (text: string) => {
+    if (!text.trim()) return;
+    
+    // Add user message to chat
+    setChatMessages(prev => [...prev, { type: 'user', text }]);
+    setChatInput("");
+    
+    // Send to avatar
+    await sendText(text, "talk");
+  };
+
+  const toggleMute = () => {
+    if (mediaStream) {
+      const audioTracks = mediaStream.getAudioTracks();
+      audioTracks.forEach(track => {
+        track.enabled = !track.enabled;
+      });
+      setIsMuted(!isMuted);
+    }
+  };
+
+  const toggleVideo = () => {
+    if (mediaStream) {
+      const videoTracks = mediaStream.getVideoTracks();
+      videoTracks.forEach(track => {
+        track.enabled = !track.enabled;
+      });
+      setIsVideoOff(!isVideoOff);
+    }
+  };
+
   return (
-    <div className="relative w-full h-full">
-      {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
-          <div className="text-white text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white mx-auto"></div>
-            <p className="mt-2">Initializing avatar...</p>
+    <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-black">
+      {/* Main video container - 80% of screen */}
+      <div className="relative w-[80%] h-[80%] rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black/20 backdrop-blur-sm">
+        {isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-10">
+            <div className="text-white text-center">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white mx-auto"></div>
+              <p className="mt-4 text-lg font-medium">Initializing avatar...</p>
+            </div>
           </div>
-        </div>
-      )}
-      
-      {!isSessionReady && !isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
-          <div className="text-white text-center">
-            <p>Connecting to session...</p>
+        )}
+        
+        {!isSessionReady && !isLoading && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-10">
+            <div className="text-white text-center">
+              <p className="text-lg font-medium">Connecting to session...</p>
+            </div>
           </div>
+        )}
+        
+        <video
+          ref={videoRef}
+          autoPlay
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        
+        {/* Status indicators */}
+        <div className="absolute bottom-6 left-6 flex gap-3">
+          {isListening && (
+            <div className="px-4 py-2 bg-blue-500/90 backdrop-blur-md text-white rounded-full text-sm font-medium flex items-center gap-2">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              Listening...
+            </div>
+          )}
+          {isTalking && (
+            <div className="px-4 py-2 bg-green-500/90 backdrop-blur-md text-white rounded-full text-sm font-medium flex items-center gap-2">
+              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+              Talking...
+            </div>
+          )}
         </div>
-      )}
-      
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        className="w-full h-full object-cover"
-      />
-      
-      {children}
+
+        {/* Quick Controls */}
+        <div className="absolute top-6 right-6 flex gap-3">
+          <Button
+            variant="outline"
+            size="icon"
+            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
+            onClick={toggleMute}
+          >
+            {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="icon"
+            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
+            onClick={toggleVideo}
+          >
+            {isVideoOff ? <VideoOff className="h-6 w-6" /> : <Video className="h-6 w-6" />}
+          </Button>
+          
+          <Button
+            variant="outline"
+            size="icon"
+            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
+            onClick={() => setShowChat(!showChat)}
+          >
+            <MessageSquare className="h-6 w-6" />
+          </Button>
+        </div>
+
+        {/* Floating Controls */}
+        <FloatingControls
+          onStart={handleStart}
+          onClose={closeSession}
+          onTalk={() => sendText("How can I assist you today?")}
+          onRepeat={() => sendText("Could you please repeat that?", "repeat")}
+          isListening={isListening}
+        />
+
+        {/* Chat Panel */}
+        {showChat && (
+          <div className="absolute top-6 right-24 w-96 h-[calc(100%-3rem)] bg-black/40 backdrop-blur-xl rounded-2xl flex flex-col border border-white/10 shadow-2xl transition-all duration-300">
+            <div className="flex-1 overflow-y-auto p-6 space-y-4">
+              {chatMessages.map((msg, idx) => (
+                <div
+                  key={idx}
+                  className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-[80%] px-5 py-3 rounded-2xl ${
+                      msg.type === 'user'
+                        ? 'bg-blue-500/90 text-white'
+                        : 'bg-white/10 text-white backdrop-blur-sm'
+                    }`}
+                  >
+                    {msg.text}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="p-6 border-t border-white/10">
+              <div className="flex gap-3">
+                <input
+                  type="text"
+                  value={chatInput}
+                  onChange={(e) => setChatInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendChatMessage(chatInput)}
+                  placeholder="Type your message..."
+                  className="flex-1 px-5 py-3 bg-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder-white/50 backdrop-blur-sm"
+                />
+                <Button
+                  onClick={() => sendChatMessage(chatInput)}
+                  className="px-6 py-3 bg-blue-500/90 text-white rounded-xl hover:bg-blue-600/90 transition-all duration-200"
+                >
+                  Send
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

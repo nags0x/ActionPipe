@@ -106,7 +106,7 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
           
           const sessionInfo = await avatar.createStartAvatar({
             quality: AvatarQuality.High,
-            avatarId: avatarId,
+            avatarName: avatarId,
             voice: {
               voiceId: voiceId
             },
