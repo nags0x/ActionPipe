@@ -322,13 +322,27 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
         videoRef.current.srcObject = null;
       }
       
+      // Reset all state variables
       setSessionInfo(null);
       setSessionToken(null);
       setRoom(null);
       setWebSocket(null);
       setMediaStream(null);
+      setIsSessionReady(false);
+      setIsTalking(false);
+      setIsListening(false);
+      setIsLoading(false);
+      setShowChat(false);
+      setChatAnimation('hidden');
+      setIsMuted(false);
+      setIsVideoOff(false);
+      setChatMessages([]);
+      setChatInput("");
+      setIsSending(false);
+      setIsFlying(false);
+      setShowLoader(false);
       
-      console.log("Session closed");
+      console.log("Session closed and all states reset");
     } catch (error) {
       console.error("Error closing session:", error);
     }
