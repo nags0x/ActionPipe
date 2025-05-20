@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { Play, X, Mic, Repeat, MessageSquare, Video, VideoOff, MicOff } from "lucide-react";
+import { Play, X, Mic, Repeat, MessageSquare, Video, VideoOff, MicOff, Send, LoaderPinwheel } from "lucide-react";
 import FloatingControls from "./FloatingControls";
 
 interface LiveKitAvatarVideoProps {
@@ -32,6 +32,8 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
   const [isSessionReady, setIsSessionReady] = useState(false);
   const [chatAnimation, setChatAnimation] = useState<'entering' | 'exiting' | 'visible' | 'hidden'>('hidden');
   const [isSending, setIsSending] = useState(false);
+  const [isFlying, setIsFlying] = useState(false);
+  const [showLoader, setShowLoader] = useState(false);
 
   useEffect(() => {
     // Dynamically import LiveKit client
@@ -424,7 +426,13 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
   const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (chatInput.trim() && !isSending) {
-      setIsSending(true);
+      setIsFlying(true);
+      // Wait for the paper plane animation to complete before showing loader
+      setTimeout(() => {
+        setIsSending(true);
+        setShowLoader(true);
+      }, 1000); // 1 second delay to match animation duration
+      
       await sendChatMessage(chatInput);
       setChatInput('');
       
@@ -434,6 +442,8 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         setShowChat(false);
         setChatAnimation('hidden');
         setIsSending(false);
+        setIsFlying(false);
+        setShowLoader(false);
       }, 300);
     }
   };
@@ -591,7 +601,11 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
                     }`}
                     disabled={isSending}
                   >
-                    {isSending ? 'Sending...' : 'Send'}
+                    {showLoader ? (
+                      <LoaderPinwheel className="animate-spin" />
+                    ) : (
+                      <Send className={isFlying ? 'animate-paper-plane' : ''} />
+                    )}
                   </Button>
                 </form>
               </div>
@@ -599,6 +613,37 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
           </div>
         )}
       </div>
+
+      {/* Add this at the end of the component, just before the closing div */}
+      <style>{`
+        @keyframes paper-plane {
+          0% {
+            transform: translate(0, 0) rotate(0deg);
+            opacity: 1;
+          }
+          25% {
+            transform: translate(100px, -50px) rotate(15deg);
+            opacity: 0.8;
+          }
+          50% {
+            transform: translate(200px, -100px) rotate(30deg);
+            opacity: 0.6;
+          }
+          75% {
+            transform: translate(300px, -150px) rotate(45deg);
+            opacity: 0.4;
+          }
+          100% {
+            transform: translate(400px, -200px) rotate(60deg);
+            opacity: 0;
+          }
+        }
+
+        .animate-paper-plane {
+          animation: paper-plane 1s ease-out forwards;
+          position: absolute;
+        }
+      `}</style>
     </div>
   );
 };
