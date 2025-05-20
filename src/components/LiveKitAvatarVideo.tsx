@@ -526,6 +526,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
           onRepeat={handleRepeat}
           onTalk={handleTalk}
           onStart={handleStart}
+          onClose={closeSession}
           isSessionReady={isSessionReady}
           isTalking={isTalking}
           isListening={isListening}
