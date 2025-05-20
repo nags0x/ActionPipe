@@ -2,14 +2,28 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { Play, ArrowRight, Speech, SquareMousePointer, Move } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ApiInputDialog from "@/components/ApiInputDialog";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { FlipWords } from "@/components/ui/flip-words";
 import { TextHoverEffect } from "@/components/ui/text-hover-effect";
+import { toast } from "sonner";
 
 const LandingPage = () => {
   const [isApiDialogOpen, setIsApiDialogOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleStartExperience = (e: React.MouseEvent) => {
+    const apiKey = localStorage.getItem("heygenApiKey");
+    if (!apiKey) {
+      e.preventDefault();
+      toast.error("Please configure your API key first", {
+        duration: 3000
+      });
+    } else {
+      navigate("/app");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 text-black dark:text-white flex flex-col relative overflow-hidden transition-colors duration-200">
@@ -107,12 +121,10 @@ const LandingPage = () => {
               variant="outline" 
               size="lg" 
               className="border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full px-8 text-lg group font-inter font-light"
-              asChild
+              onClick={handleStartExperience}
             >
-              <Link to="/app">
-                Start Experience
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              Start Experience
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
