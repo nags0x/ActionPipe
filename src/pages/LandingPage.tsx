@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import { Play, ArrowRight, Speech, SquareMousePointer, Move } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ApiInputDialog from "@/components/ApiInputDialog";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { FlipWords } from "@/components/ui/flip-words";
@@ -11,14 +11,16 @@ import { toast } from "sonner";
 
 const LandingPage = () => {
   const [isApiDialogOpen, setIsApiDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
-  const handleStartExperience = (e: React.MouseEvent) => {
+  const handleStartExperience = () => {
     const apiKey = localStorage.getItem("heygenApiKey");
     if (!apiKey) {
-      e.preventDefault();
       toast.error("Please configure your API key first", {
         duration: 3000
       });
+    } else {
+      navigate("/app");
     }
   };
 
@@ -118,12 +120,10 @@ const LandingPage = () => {
               variant="outline" 
               size="lg" 
               className="border-gray-200 dark:border-gray-700 text-gray-900 dark:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-full px-8 text-lg group font-inter font-light"
-              asChild
+              onClick={handleStartExperience}
             >
-              <Link to="/app" onClick={handleStartExperience}>
-                Start Experience
-                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
+              Start Experience
+              <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </Button>
           </div>
         </div>
