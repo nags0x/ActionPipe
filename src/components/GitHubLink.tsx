@@ -1,10 +1,9 @@
-
 import { Button } from "@/components/ui/button";
 import { Github } from "lucide-react";
 
 const GitHubLink = () => {
   return (
-    <div className="absolute top-4 right-4">
+    <div className="absolute top-4 right-4 z-[100] pointer-events-auto">
       <Button 
         variant="outline" 
         size="icon" 

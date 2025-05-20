@@ -3,6 +3,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Play, X, Mic, Repeat, MessageSquare, Video, VideoOff, MicOff, Send, LoaderPinwheel } from "lucide-react";
 import FloatingControls from "./FloatingControls";
+import { Link } from "react-router-dom";
 
 interface LiveKitAvatarVideoProps {
   token: string;
@@ -457,6 +458,25 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         <div className="absolute bottom-20 left-40 w-32 h-32 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20"></div>
         <div className="absolute top-40 right-20 w-24 h-24 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20" style={{ animationDelay: '2s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50 dark:from-transparent dark:via-gray-800/50 dark:to-gray-900/50"></div>
+      </div>
+
+      {/* Logo button in top left corner */}
+      <div className="absolute top-4 left-4 z-50 border-none rounded-full">
+        <Button 
+          variant="ghost"
+          size="icon" 
+          className="w-12 h-12 rounded-full border-none hover:bg-"
+          asChild
+          aria-label="Go to home page"
+        >
+          <Link to="/">
+            <img 
+              src="/logo4.png" 
+              alt="ActionPipe Logo" 
+              className="w-8 h-8"
+            />
+          </Link>
+        </Button>
       </div>
 
       {/* Main content */}
