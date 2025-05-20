@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    include: ['livekit-client'],
+    include: ['livekit-client', '@tanstack/react-query'],
   },
   build: {
     target: 'esnext',
@@ -31,6 +31,7 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'ui-vendor': ['@radix-ui/react-*', 'class-variance-authority', 'clsx', 'tailwind-merge'],
+          'query-vendor': ['@tanstack/react-query'],
         },
       },
     },
