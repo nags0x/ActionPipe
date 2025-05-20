@@ -3,9 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  html, body {
-    @apply h-full overflow-hidden;
-  }
 
   :root {
     --background: 0 0% 100%;
