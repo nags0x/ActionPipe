@@ -107,18 +107,10 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
           const sessionInfo = await avatar.createStartAvatar({
             quality: AvatarQuality.High,
             avatarId: avatarId,
-            knowledgeId: knowledgeId,
             voice: {
-              voiceId: voiceId,
-              rate: 1.0,
-              emotion: VoiceEmotion.FRIENDLY,
+              voiceId: voiceId
             },
-            sttSettings: {
-              provider: STTProvider.DEEPGRAM,
-              confidence: 0.55,
-            },
-            language: language,
-            voiceChatTransport: VoiceChatTransport.WEBSOCKET,
+            language: language
           });
           
           console.log("Session info:", sessionInfo);
@@ -184,13 +176,13 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
 
   return (
     <div className="relative w-full h-full">
-      <div className="absolute inset-0 flex items-center justify-center bg-transparent">
+      <div className="absolute inset-0 flex items-center justify-center bg-transparent border-2 border-red-500">
         {isLoading ? (
           <div className="animate-pulse w-24 h-24 rounded-full bg-black/10" />
         ) : (
           <video
             ref={videoRef}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover bg-gray-100"
             autoPlay
             playsInline
             muted={false}

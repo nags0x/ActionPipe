@@ -1,41 +1,35 @@
 
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import AvatarVideo from "@/components/AvatarVideo";
-import FloatingControls from "@/components/FloatingControls";
+import React, { useState, useEffect } from "react";
+import HeyGenStreaming from "@/components/HeyGenStreaming";
 import GitHubLink from "@/components/GitHubLink";
-import { toast } from "sonner";
 
 const Index = () => {
   const [apiKey, setApiKey] = useState<string | null>(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if API key exists
-    const storedApiKey = localStorage.getItem("heygenApiKey");
-    setApiKey(storedApiKey);
-    
-    if (!storedApiKey) {
-      toast.error("Please configure your API key first");
-      navigate("/");
+    // Get API key from localStorage or environment
+    const storedApiKey = localStorage.getItem("heygen_api_key");
+    if (storedApiKey) {
+      setApiKey(storedApiKey);
     } else {
-      console.log("Using API key:", storedApiKey.substring(0, 5) + "...");
+      // Prompt for API key if not found
+      const key = prompt("Please enter your HeyGen API key:");
+      if (key) {
+        localStorage.setItem("heygen_api_key", key);
+        setApiKey(key);
+      }
     }
-  }, [navigate]);
+  }, []);
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden bg-white">
+    <div className="relative">
       {/* Avatar video takes up the full viewport */}
       {apiKey && (
-        <AvatarVideo 
-          token={apiKey}
-          avatarId="54ba4feb02b1435abba18de09c5d3643"
-          knowledgeId="fd83e7d66d264edab6f7d8aa093d3594"
-          voiceId="f772a099cbb7421eb0176240c611fc43"
-          language="en-US"
-        >
-          <FloatingControls />
-        </AvatarVideo>
+        <HeyGenStreaming 
+          apiKey={apiKey}
+          avatarId="Wayne_20240711"
+          voiceId="f772a099cbb7421eb0176240c611fc43" // Use your voice ID
+        />
       )}
       
       {/* GitHub link in top right corner */}
