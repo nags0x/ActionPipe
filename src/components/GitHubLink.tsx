@@ -7,7 +7,7 @@ const GitHubLink = () => {
       <Button 
         variant="outline" 
         size="icon" 
-        className="w-10 h-10 rounded-full bg-white/10 border-black border text-black hover:bg-black/5 hover:text-black"
+        className="w-10 h-10 rounded-full bg-white/10 border-black dark:border-white border text-black dark:text-white hover:bg-black/5 dark:hover:bg-white/5 hover:text-black dark:hover:text-white"
         asChild
         aria-label="View on GitHub"
       >
