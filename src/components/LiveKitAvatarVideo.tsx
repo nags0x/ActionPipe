@@ -61,7 +61,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'X-Api-Key': token,
+          'x-api-key': token,
         },
       });
 

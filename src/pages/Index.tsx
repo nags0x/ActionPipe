@@ -7,14 +7,14 @@ const Index = () => {
 
   useEffect(() => {
     // Get API key from localStorage or environment
-    const storedApiKey = localStorage.getItem("heygen_api_key");
+    const storedApiKey = localStorage.getItem("heygenApiKey");
     if (storedApiKey) {
       setApiKey(storedApiKey);
     } else {
       // Prompt for API key if not found
       const key = prompt("Please enter your HeyGen API key:");
       if (key) {
-        localStorage.setItem("heygen_api_key", key);
+        localStorage.setItem("heygenApiKey", key);
         setApiKey(key);
       }
     }
