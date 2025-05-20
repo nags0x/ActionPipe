@@ -404,126 +404,113 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
   };
 
   return (
-    <div className="relative w-full h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-black">
-      {/* Main video container - 80% of screen */}
-      <div className="relative w-[80%] h-[80%] rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black/20 backdrop-blur-sm">
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-10">
-            <div className="text-white text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-white mx-auto"></div>
-              <p className="mt-4 text-lg font-medium">Initializing avatar...</p>
+    <div className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
+      {/* Background blur with subtle shade */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-24 w-96 h-96 bg-gray-100/40 dark:bg-gray-700/40 rounded-full blur-3xl opacity-50 animate-pulse-soft"></div>
+        <div className="absolute bottom-1/3 -right-24 w-96 h-96 bg-gray-100/40 dark:bg-gray-700/40 rounded-full blur-3xl opacity-50 animate-pulse-soft"></div>
+        <div className="absolute bottom-20 left-40 w-32 h-32 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50 dark:from-transparent dark:via-gray-800/50 dark:to-gray-900/50"></div>
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
+        {/* Video container with glass effect */}
+        <div className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 shadow-xl">
+          {isLoading ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-50/80 dark:bg-gray-900/80">
+              <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-200 dark:border-gray-700 border-t-black dark:border-t-white"></div>
             </div>
-          </div>
-        )}
-        
-        {!isSessionReady && !isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 backdrop-blur-sm z-10">
-            <div className="text-white text-center">
-              <p className="text-lg font-medium">Connecting to session...</p>
-            </div>
-          </div>
-        )}
-        
-        <video
-          ref={videoRef}
-          autoPlay
-          playsInline
-          className="w-full h-full object-cover"
-        />
-        
-        {/* Status indicators */}
-        <div className="absolute bottom-6 left-6 flex gap-3">
-          {isListening && (
-            <div className="px-4 py-2 bg-blue-500/90 backdrop-blur-md text-white rounded-full text-sm font-medium flex items-center gap-2">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              Listening...
-            </div>
+          ) : (
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              className="w-full h-full object-cover"
+            />
           )}
-          {isTalking && (
-            <div className="px-4 py-2 bg-green-500/90 backdrop-blur-md text-white rounded-full text-sm font-medium flex items-center gap-2">
-              <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
-              Talking...
-            </div>
-          )}
+          
+          {/* Status indicators */}
+          <div className="absolute top-4 right-4 flex gap-2">
+            {isTalking && (
+              <div className="px-3 py-1.5 rounded-full bg-white/90 dark:bg-gray-800/90 text-sm text-gray-700 dark:text-gray-300 font-inter font-light backdrop-blur-sm">
+                Speaking...
+              </div>
+            )}
+            {isListening && (
+              <div className="px-3 py-1.5 rounded-full bg-white/90 dark:bg-gray-800/90 text-sm text-gray-700 dark:text-gray-300 font-inter font-light backdrop-blur-sm">
+                Listening...
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Quick Controls */}
-        <div className="absolute top-6 right-6 flex gap-3">
-          <Button
-            variant="outline"
-            size="icon"
-            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
-            onClick={toggleMute}
-          >
-            {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="icon"
-            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
-            onClick={toggleVideo}
-          >
-            {isVideoOff ? <VideoOff className="h-6 w-6" /> : <Video className="h-6 w-6" />}
-          </Button>
-          
-          <Button
-            variant="outline"
-            size="icon"
-            className="w-12 h-12 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-200"
-            onClick={() => setShowChat(!showChat)}
-          >
-            <MessageSquare className="h-6 w-6" />
-          </Button>
-        </div>
-
-        {/* Floating Controls */}
+        {/* Floating controls */}
         <FloatingControls
+          isMuted={isMuted}
+          isVideoOff={isVideoOff}
+          showChat={showChat}
+          onMute={toggleMute}
+          onVideoToggle={toggleVideo}
+          onChatToggle={() => setShowChat(!showChat)}
+          onRepeat={handleRepeat}
+          onTalk={handleTalk}
           onStart={handleStart}
-          onClose={closeSession}
-          onTalk={() => sendText("How can I assist you today?")}
-          onRepeat={() => sendText("Could you please repeat that?", "repeat")}
+          isSessionReady={isSessionReady}
+          isTalking={isTalking}
           isListening={isListening}
         />
 
-        {/* Chat Panel */}
+        {/* Chat interface */}
         {showChat && (
-          <div className="absolute top-6 right-24 w-96 h-[calc(100%-3rem)] bg-black/40 backdrop-blur-xl rounded-2xl flex flex-col border border-white/10 shadow-2xl transition-all duration-300">
-            <div className="flex-1 overflow-y-auto p-6 space-y-4">
-              {chatMessages.map((msg, idx) => (
+          <div className="fixed bottom-24 right-6 w-96 h-[500px] rounded-2xl backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 shadow-xl overflow-hidden flex flex-col">
+            <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
+              <h3 className="text-lg font-inter font-light text-gray-900 dark:text-white">Chat</h3>
+            </div>
+            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+              {chatMessages.map((message, index) => (
                 <div
-                  key={idx}
-                  className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                  key={index}
+                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[80%] px-5 py-3 rounded-2xl ${
-                      msg.type === 'user'
-                        ? 'bg-blue-500/90 text-white'
-                        : 'bg-white/10 text-white backdrop-blur-sm'
+                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                      message.type === 'user'
+                        ? 'bg-black text-white dark:bg-white dark:text-black'
+                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
                     }`}
                   >
-                    {msg.text}
+                    <p className="font-inter font-light text-sm">{message.text}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <div className="p-6 border-t border-white/10">
-              <div className="flex gap-3">
+            <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  if (chatInput.trim()) {
+                    sendChatMessage(chatInput);
+                    setChatInput('');
+                  }
+                }}
+                className="flex gap-2"
+              >
                 <input
                   type="text"
                   value={chatInput}
                   onChange={(e) => setChatInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && sendChatMessage(chatInput)}
                   placeholder="Type your message..."
-                  className="flex-1 px-5 py-3 bg-white/10 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder-white/50 backdrop-blur-sm"
+                  className="flex-1 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 font-inter font-light focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
                 />
                 <Button
-                  onClick={() => sendChatMessage(chatInput)}
-                  className="px-6 py-3 bg-blue-500/90 text-white rounded-xl hover:bg-blue-600/90 transition-all duration-200"
+                  type="submit"
+                  className="bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-full px-4"
                 >
                   Send
                 </Button>
-              </div>
+              </form>
             </div>
           </div>
         )}

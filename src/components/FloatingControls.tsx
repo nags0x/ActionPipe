@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Play, X, Mic, Repeat } from "lucide-react";
+import { Play, X, Mic, Repeat, MessageSquare, Video, VideoOff, MicOff } from "lucide-react";
 import { useState } from "react";
 
 interface FloatingControlsProps {
@@ -7,7 +7,15 @@ interface FloatingControlsProps {
   onClose?: () => void;
   onTalk?: () => void;
   onRepeat?: () => void;
+  onMute?: () => void;
+  onVideoToggle?: () => void;
+  onChatToggle?: () => void;
   isListening?: boolean;
+  isTalking?: boolean;
+  isSessionReady?: boolean;
+  isMuted?: boolean;
+  isVideoOff?: boolean;
+  showChat?: boolean;
 }
 
 const FloatingControls = ({
@@ -15,7 +23,15 @@ const FloatingControls = ({
   onClose,
   onTalk,
   onRepeat,
-  isListening
+  onMute,
+  onVideoToggle,
+  onChatToggle,
+  isListening,
+  isTalking,
+  isSessionReady,
+  isMuted,
+  isVideoOff,
+  showChat
 }: FloatingControlsProps) => {
   const [isActive, setIsActive] = useState(false);
   
@@ -43,7 +59,7 @@ const FloatingControls = ({
         <Button 
           variant="outline" 
           size="icon" 
-          className="w-16 h-16 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+          className="w-16 h-16 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
           onClick={handleStart}
           aria-label="Start avatar"
         >
@@ -54,7 +70,37 @@ const FloatingControls = ({
           <Button 
             variant="outline" 
             size="icon" 
-            className="w-14 h-14 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
+            onClick={onMute}
+            aria-label="Toggle microphone"
+          >
+            {isMuted ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
+          </Button>
+
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
+            onClick={onVideoToggle}
+            aria-label="Toggle video"
+          >
+            {isVideoOff ? <VideoOff className="h-7 w-7" /> : <Video className="h-7 w-7" />}
+          </Button>
+
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
+            onClick={onChatToggle}
+            aria-label="Toggle chat"
+          >
+            <MessageSquare className="h-7 w-7" />
+          </Button>
+          
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
             onClick={handleTalk}
             aria-label="Talk to avatar"
           >
@@ -69,7 +115,7 @@ const FloatingControls = ({
           <Button 
             variant="outline" 
             size="icon" 
-            className="w-14 h-14 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20"
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
             onClick={handleRepeat}
             aria-label="Make avatar repeat"
           >
@@ -79,7 +125,7 @@ const FloatingControls = ({
           <Button 
             variant="outline" 
             size="icon" 
-            className="w-14 h-14 rounded-full bg-black/20 backdrop-blur-md border-white/20 border text-white hover:bg-black/30 hover:text-white transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-red-500/20"
+            className="w-14 h-14 rounded-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 text-gray-900 dark:text-white hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-gray-700/50"
             onClick={handleClose}
             aria-label="Close avatar"
           >
