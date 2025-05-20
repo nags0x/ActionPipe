@@ -166,7 +166,6 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         session_id: newSessionInfo.session_id,
         session_token: newSessionToken,
         silence_response: 'false',
-        opening_text: "Hello, how can I help you?",
         stt_language: language.split('-')[0] || 'en',
       });
 
