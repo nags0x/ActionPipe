@@ -9,11 +9,12 @@ interface LiveKitAvatarVideoProps {
   token: string;
   avatarId: string;
   voiceId: string;
+  knowledgeId: string;
   language: string;
   children?: React.ReactNode;
 }
 
-const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: LiveKitAvatarVideoProps) => {
+const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, children }: LiveKitAvatarVideoProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isTalking, setIsTalking] = useState(false);
@@ -93,6 +94,8 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
             voice_id: voiceId,
             rate: 1.0,
           },
+          // Add knowledge base ID if provided
+          ...(knowledgeId && { knowledge_base_id: knowledgeId }),
           version: "v2",
           video_encoding: "H264",
         }),
@@ -167,6 +170,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         session_token: newSessionToken,
         silence_response: 'false',
         stt_language: language.split('-')[0] || 'en',
+        ...(knowledgeId && { knowledge_base_id: knowledgeId }),
       });
 
       const wsUrl = `wss://${new URL('https://api.heygen.com').hostname}/v1/ws/streaming.chat?${params}`;
@@ -270,6 +274,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
           session_id: sessionInfo.session_id,
           text: text,
           task_type: taskType,
+          ...(knowledgeId && { knowledge_base_id: knowledgeId }),
         }),
       });
       

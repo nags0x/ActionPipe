@@ -27,6 +27,7 @@ const Index = () => {
         token={apiKey}
         avatarId="Wayne_20240711"
         voiceId="f772a099cbb7421eb0176240c611fc43"
+        knowledgeId="ab094fd671db4081b0ea73fc3767655c"
         language="en-US"
       />
       
