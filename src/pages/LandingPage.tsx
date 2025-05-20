@@ -56,7 +56,7 @@ const LandingPage = () => {
               <br />
               <span className="font-inter font-extralight mt-2 block text-gray-800 dark:text-gray-200">
                 <FlipWords 
-                  words={["Virtual Avatar.", "AI Companion.", "Smart Assistant.", "Online Girlfriend"]} 
+                  words={["Virtual Avatar.","AI Companion.", "Smart Assistant.", "Online Friend"]} 
                   duration={2500}
                   className="text-gray-800 dark:text-gray-200"
                 />
