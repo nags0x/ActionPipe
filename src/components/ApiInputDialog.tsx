@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -28,10 +27,10 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md rounded-lg border border-gray-200 backdrop-blur-sm bg-white/95">
+      <DialogContent className="sm:max-w-md rounded-lg border bg-background/95 backdrop-blur-sm">
         <DialogHeader>
           <DialogTitle className="font-playfair italic text-2xl">API Configuration</DialogTitle>
-          <DialogDescription className="font-inter font-light text-gray-600">
+          <DialogDescription className="font-inter font-light text-muted-foreground">
             Enter your Heygen API key to enable avatar functionality
           </DialogDescription>
         </DialogHeader>
@@ -48,7 +47,7 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
               placeholder="Enter your API key"
               className="font-inter font-light"
             />
-            <p className="text-xs text-gray-500 font-inter font-light">
+            <p className="text-xs text-muted-foreground font-inter font-light">
               Your API key is stored locally and never shared.
             </p>
           </div>
@@ -64,7 +63,7 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
           </Button>
           <Button 
             onClick={handleSaveApiKey}
-            className="bg-black text-white hover:bg-black/90 rounded-full font-inter font-light"
+            className="rounded-full font-inter font-light"
           >
             Save API Key
           </Button>
