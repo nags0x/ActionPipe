@@ -471,9 +471,9 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
         >
           <Link to="/">
             <img 
-              src="/logo4.png" 
+              src="/favicon.png" 
               alt="ActionPipe Logo" 
-              className="w-8 h-8"
+              className="w-10 h-10"
             />
           </Link>
         </Button>
