@@ -12,11 +12,15 @@ const Index = () => {
     }
   }, []);
 
+  if (!apiKey) {
+    return null;
+  }
+
   return (
     <div className="relative">
       {/* Avatar video takes up the full viewport */}
       <LiveKitAvatarVideo 
-        token={apiKey!}
+        token={apiKey}
         avatarId="Wayne_20240711"
         voiceId="f772a099cbb7421eb0176240c611fc43"
         language="en-US"
