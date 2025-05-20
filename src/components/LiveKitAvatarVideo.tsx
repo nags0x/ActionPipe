@@ -30,6 +30,8 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
   const [webSocket, setWebSocket] = useState<WebSocket | null>(null);
   const [mediaStream, setMediaStream] = useState<MediaStream | null>(null);
   const [isSessionReady, setIsSessionReady] = useState(false);
+  const [chatAnimation, setChatAnimation] = useState<'entering' | 'exiting' | 'visible' | 'hidden'>('hidden');
+  const [isSending, setIsSending] = useState(false);
 
   useEffect(() => {
     // Dynamically import LiveKit client
@@ -403,6 +405,39 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
     }
   };
 
+  const handleChatToggle = () => {
+    if (showChat) {
+      setChatAnimation('exiting');
+      setTimeout(() => {
+        setShowChat(false);
+        setChatAnimation('hidden');
+      }, 300);
+    } else {
+      setShowChat(true);
+      setChatAnimation('entering');
+      setTimeout(() => {
+        setChatAnimation('visible');
+      }, 50);
+    }
+  };
+
+  const handleSendMessage = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (chatInput.trim() && !isSending) {
+      setIsSending(true);
+      await sendChatMessage(chatInput);
+      setChatInput('');
+      
+      // Start exit animation
+      setChatAnimation('exiting');
+      setTimeout(() => {
+        setShowChat(false);
+        setChatAnimation('hidden');
+        setIsSending(false);
+      }, 300);
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-gray-900 dark:to-gray-800">
       {/* Background blur with subtle shade */}
@@ -417,7 +452,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
       {/* Main content */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen">
         {/* Video container with glass effect */}
-        <div className="relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 shadow-xl">
+        <div className={`relative w-full max-w-4xl aspect-video rounded-2xl overflow-hidden backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 shadow-xl transition-all duration-500 ease-in-out ${showChat ? 'opacity-25 scale-95' : 'opacity-100 scale-100'}`}>
           {isLoading ? (
             <div className="absolute inset-0 flex items-center justify-center bg-gray-50/80 dark:bg-gray-900/80">
               <div className="animate-spin rounded-full h-12 w-12 border-4 border-gray-200 dark:border-gray-700 border-t-black dark:border-t-white"></div>
@@ -453,7 +488,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
           showChat={showChat}
           onMute={toggleMute}
           onVideoToggle={toggleVideo}
-          onChatToggle={() => setShowChat(!showChat)}
+          onChatToggle={handleChatToggle}
           onRepeat={handleRepeat}
           onTalk={handleTalk}
           onStart={handleStart}
@@ -464,53 +499,102 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
 
         {/* Chat interface */}
         {showChat && (
-          <div className="fixed bottom-24 right-6 w-96 h-[500px] rounded-2xl backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 bg-white/80 dark:bg-gray-800/80 shadow-xl overflow-hidden flex flex-col">
-            <div className="p-4 border-b border-gray-200/50 dark:border-gray-700/50">
-              <h3 className="text-lg font-inter font-light text-gray-900 dark:text-white">Chat</h3>
-            </div>
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
-              {chatMessages.map((message, index) => (
-                <div
-                  key={index}
-                  className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-2 ${
-                      message.type === 'user'
-                        ? 'bg-black text-white dark:bg-white dark:text-black'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
-                    }`}
-                  >
-                    <p className="font-inter font-light text-sm">{message.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="p-4 border-t border-gray-200/50 dark:border-gray-700/50">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (chatInput.trim()) {
-                    sendChatMessage(chatInput);
-                    setChatInput('');
-                  }
+          <div 
+            className={`fixed inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${
+              chatAnimation === 'entering' ? 'opacity-0 translate-y-4 scale-95' :
+              chatAnimation === 'exiting' ? 'opacity-0 -translate-y-4 scale-105' :
+              'opacity-100 translate-y-0 scale-100'
+            }`}
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 50
+            }}
+          >
+            {/* Semi-transparent backdrop */}
+            <div 
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm transition-opacity duration-500" 
+              onClick={handleChatToggle}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                zIndex: 51
+              }}
+            ></div>
+
+            {/* Chat box container */}
+            <div 
+              className="relative w-full max-w-2xl mx-4 bg-white/95 dark:bg-gray-800/95 rounded-2xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden backdrop-blur-md"
+              style={{
+                position: 'relative',
+                zIndex: 52,
+                transform: 'translateY(-5%)', // Slight upward offset for better visual balance
+                maxHeight: '80vh'
+              }}
+            >
+              {/* Chat header */}
+              <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+                <h3 className="text-xl font-inter font-light text-gray-900 dark:text-white">Chat</h3>
+              </div>
+
+              {/* Messages container */}
+              <div 
+                className="overflow-y-auto p-6 space-y-4"
+                style={{
+                  maxHeight: 'calc(80vh - 180px)', // Account for header and input
+                  scrollbarWidth: 'thin',
+                  scrollbarColor: 'rgba(0,0,0,0.2) transparent'
                 }}
-                className="flex gap-2"
               >
-                <input
-                  type="text"
-                  value={chatInput}
-                  onChange={(e) => setChatInput(e.target.value)}
-                  placeholder="Type your message..."
-                  className="flex-1 px-4 py-2 rounded-full bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 font-inter font-light focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600"
-                />
-                <Button
-                  type="submit"
-                  className="bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-full px-4"
+                {chatMessages.map((message, index) => (
+                  <div
+                    key={index}
+                    className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-4 py-2 ${
+                        message.type === 'user'
+                          ? 'bg-black text-white dark:bg-white dark:text-black'
+                          : 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-gray-100'
+                      }`}
+                    >
+                      <p className="font-inter font-light text-sm">{message.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Input form */}
+              <div className="p-6 border-t border-gray-200/50 dark:border-gray-700/50">
+                <form
+                  onSubmit={handleSendMessage}
+                  className="flex gap-3"
                 >
-                  Send
-                </Button>
-              </form>
+                  <input
+                    type="text"
+                    value={chatInput}
+                    onChange={(e) => setChatInput(e.target.value)}
+                    placeholder="Type your message..."
+                    className="flex-1 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 font-inter font-light focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600 transition-all duration-200"
+                    disabled={isSending}
+                  />
+                  <Button
+                    type="submit"
+                    className={`bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-xl px-6 py-3 transition-all duration-200 ${
+                      isSending ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                    disabled={isSending}
+                  >
+                    {isSending ? 'Sending...' : 'Send'}
+                  </Button>
+                </form>
+              </div>
             </div>
           </div>
         )}
