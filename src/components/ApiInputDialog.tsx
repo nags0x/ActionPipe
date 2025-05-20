@@ -45,7 +45,7 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
               value={apiKey}
               onChange={(e) => setApiKey(e.target.value)}
               placeholder="Enter your API key"
-              className="font-inter font-light bg-background/90 dark:bg-background/80"
+              className="font-inter font-light bg-background/90 dark:bg-background/70"
             />
             <p className="text-xs text-muted-foreground font-inter font-light">
               Your API key is stored locally and never shared.
