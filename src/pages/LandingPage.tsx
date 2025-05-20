@@ -33,7 +33,7 @@ const LandingPage = () => {
             <img 
               src="/logo4.png" 
               alt="ActionPipe Logo" 
-              className="w-56 h-56 mx-auto object-contain rounded-xl shadow-xl"
+              className="w-48 h-48 mx-auto object-contain rounded-xl shadow-xl"
             />
           </div>
           <div className="animate-fade-in opacity-0" style={{ animationDelay: '0.2s' }}>
