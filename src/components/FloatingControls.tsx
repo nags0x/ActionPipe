@@ -3,28 +3,42 @@ import { Button } from "@/components/ui/button";
 import { Play, X, Mic, Repeat } from "lucide-react";
 import { useState } from "react";
 
-const FloatingControls = () => {
+interface FloatingControlsProps {
+  onStart?: () => void;
+  onClose?: () => void;
+  onTalk?: () => void;
+  onRepeat?: () => void;
+  isListening?: boolean;
+}
+
+const FloatingControls = ({
+  onStart,
+  onClose,
+  onTalk,
+  onRepeat,
+  isListening
+}: FloatingControlsProps) => {
   const [isActive, setIsActive] = useState(false);
   
   const handleStart = () => {
     setIsActive(true);
-    // Logic to start the avatar stream would go here
+    if (onStart) onStart();
     console.log("Start avatar stream");
   };
   
   const handleClose = () => {
     setIsActive(false);
-    // Logic to close the avatar stream would go here
+    if (onClose) onClose();
     console.log("Close avatar stream");
   };
   
   const handleTalk = () => {
-    // Logic to enable microphone/talking would go here
+    if (onTalk) onTalk();
     console.log("Talk to avatar");
   };
   
   const handleRepeat = () => {
-    // Logic to make the avatar repeat would go here
+    if (onRepeat) onRepeat();
     console.log("Make avatar repeat");
   };
   

@@ -18,16 +18,25 @@ const Index = () => {
     if (!storedApiKey) {
       toast.error("Please configure your API key first");
       navigate("/");
+    } else {
+      console.log("Using API key:", storedApiKey.substring(0, 5) + "...");
     }
   }, [navigate]);
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-white">
       {/* Avatar video takes up the full viewport */}
-      <AvatarVideo />
-      
-      {/* Floating controls positioned at the bottom center */}
-      <FloatingControls />
+      {apiKey && (
+        <AvatarVideo 
+          token={apiKey}
+          avatarId="54ba4feb02b1435abba18de09c5d3643"
+          knowledgeId="fd83e7d66d264edab6f7d8aa093d3594"
+          voiceId="f772a099cbb7421eb0176240c611fc43"
+          language="en-US"
+        >
+          <FloatingControls />
+        </AvatarVideo>
+      )}
       
       {/* GitHub link in top right corner */}
       <GitHubLink />

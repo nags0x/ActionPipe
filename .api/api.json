@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "movio-api",
+      "source": "@movio-api/v4.0.8#3skpv2qma442wwm",
+      "integrity": "sha512-9GRGuZ1rPiSZ4zwFUONzWIbe7lDQQQN2kN61Q6ni1Tklwoa2qZtNDuUkEoVExo44qFuyZhBMq366uOJzL1dorQ==",
+      "installerVersion": "6.1.3"
+    }
+  ]
+}

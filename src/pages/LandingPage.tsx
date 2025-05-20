@@ -24,7 +24,6 @@ const LandingPage = () => {
         <div className="absolute top-40 right-20 w-24 h-24 border border-gray-200/30 dark:border-gray-600/30 rounded-full animate-float opacity-20" style={{ animationDelay: '2s' }}></div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-100/50 dark:from-transparent dark:via-gray-800/50 dark:to-gray-900/50"></div>
       </div>
-      
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-28 z-10">
