@@ -570,7 +570,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
             >
               {/* Chat header */}
               <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                <h3 className="text-xl font-inter font-light text-gray-900 dark:text-white">Chat</h3>
+                <h3 className="font-playfair italic text-xl text-gray-900 dark:text-white">Let's hear it!</h3>
               </div>
 
               {/* Messages container */}
@@ -611,12 +611,12 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, language, children }: Li
                     value={chatInput}
                     onChange={(e) => setChatInput(e.target.value)}
                     placeholder="Type your message..."
-                    className="flex-1 px-4 py-3 rounded-xl bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 font-inter font-light focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600 transition-all duration-200"
+                    className="flex-1 px-4 py-3 rounded-2xl bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-gray-100 font-inter font-light focus:outline-none focus:ring-2 focus:ring-gray-200 dark:focus:ring-gray-600 transition-all duration-200"
                     disabled={isSending}
                   />
                   <Button
                     type="submit"
-                    className={`bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-xl px-6 py-3 transition-all duration-200 ${
+                    className={`bg-black dark:bg-white text-white dark:text-black hover:bg-black/90 dark:hover:bg-white/90 rounded-xl px-6 py-3 transition-all duration-200 mt-2 ${
                       isSending ? 'opacity-50 cursor-not-allowed' : ''
                     }`}
                     disabled={isSending}
