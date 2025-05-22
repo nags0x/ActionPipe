@@ -19,7 +19,7 @@
 https://github.com/user-attachments/assets/6a19d2e6-e28a-4edb-8748-a429216f19bc
 
 ---
-- A wrapper built on top of Heygen's free-tier API, where WebSockets *pipe CtV (Chat-to-Voice) integration for real-time communication with dynamic voice responses between two *ends—one being a human and the other an AVI (Artificial Virtual Interface)<br> 
+- A wrapper built on top of Heygen's free-tier API, where WebSockets *pipe CtV (Chat-to-Voice) integration for real-time communication with dynamic voice responses between two *ends—one being a human and the other an AVI (Artificial Virtual Intelligence)<br> 
 - The core functionality revolves around establishing and managing streaming sessions through a series of API calls
 
 ---
