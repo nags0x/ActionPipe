@@ -52,7 +52,7 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
               Your API key is stored locally and never shared.
             </p>
             <a 
-              href="https://app.heygen.com/api-keys" 
+              href="https://docs.heygen.com/docs/quick-start" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-sm font-light text-primary/80 hover:text-primary/90 transition-colors duration-200 flex items-center gap-1 mt-2"
