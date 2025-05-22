@@ -24,7 +24,7 @@ https://github.com/user-attachments/assets/6a19d2e6-e28a-4edb-8748-a429216f19bc
 
 ---
 ## Specifics
-<img width="1065" alt="image" src="https://github.com/user-attachments/assets/d6253ab5-a369-4281-a94a-133ab487c7c0" />
+<img width="1052" alt="Screenshot 2025-05-22 at 9 37 50 PM" src="https://github.com/user-attachments/assets/28182630-04d0-41af-afd9-a756ff921339" />
 
 ## Frictions
 - HeyGenSDK didn't work as expected
