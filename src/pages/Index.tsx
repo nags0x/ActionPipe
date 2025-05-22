@@ -31,7 +31,6 @@ const Index = () => {
         language="en-US"
       />
       
-      {/* GitHub link in top right corner */}
       <GitHubLink />
     </div>
   );

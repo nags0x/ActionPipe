@@ -19,7 +19,6 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
       return;
     }
 
-    // Store API key in localStorage
     localStorage.setItem("heygenApiKey", apiKey);
     toast.success("API key saved successfully");
     onOpenChange(false);
@@ -35,6 +34,7 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
           </DialogDescription>
         </DialogHeader>
         
+        
         <div className="py-4">
           <div className="space-y-2">
             <Label htmlFor="apiKey" className="font-inter font-light">
@@ -47,9 +47,23 @@ const ApiInputDialog = ({ open, onOpenChange }: ApiInputDialogProps) => {
               placeholder="Enter your API key"
               className="font-inter font-light bg-background/90 dark:bg-background/70"
             />
+
             <p className="text-xs text-muted-foreground font-inter font-light">
               Your API key is stored locally and never shared.
             </p>
+            <a 
+              href="https://app.heygen.com/api-keys" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-sm font-light text-primary/80 hover:text-primary/90 transition-colors duration-200 flex items-center gap-1 mt-2"
+            >
+              Get API Key
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="inline-block">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                <polyline points="15 3 21 3 21 9"/>
+                <line x1="10" y1="14" x2="21" y2="3"/>
+              </svg>
+            </a>
           </div>
         </div>
         
