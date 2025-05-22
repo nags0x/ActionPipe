@@ -62,7 +62,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
       setIsLoading(true);
       console.log("Initializing avatar with token:", token.substring(0, 5) + "...");
       
-      // Step 1: Get session token
+      //Get session token
       const tokenResponse = await fetch('https://api.heygen.com/v1/streaming.create_token', {
         method: 'POST',
         headers: {
@@ -80,7 +80,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
       const newSessionToken = tokenData.data.token;
       console.log("Session token obtained:", newSessionToken.substring(0, 5) + "...");
 
-      // Step 2: Create new session
+      //Create new session
       const sessionResponse = await fetch('https://api.heygen.com/v1/streaming.new', {
         method: 'POST',
         headers: {
@@ -450,7 +450,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
       setTimeout(() => {
         setIsSending(true);
         setShowLoader(true);
-      }, 1000); // 1 second delay to match animation duration
+      }, 1000);
       
       await sendChatMessage(chatInput);
       setChatInput('');
@@ -583,7 +583,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
               style={{
                 position: 'relative',
                 zIndex: 52,
-                transform: 'translateY(-5%)', // Slight upward offset for better visual balance
+                transform: 'translateY(-5%)', 
                 maxHeight: '80vh'
               }}
             >
@@ -596,7 +596,7 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
               <div 
                 className="overflow-y-auto p-6 space-y-4"
                 style={{
-                  maxHeight: 'calc(80vh - 180px)', // Account for header and input
+                  maxHeight: 'calc(80vh - 180px)', 
                   scrollbarWidth: 'thin',
                   scrollbarColor: 'rgba(0,0,0,0.2) transparent'
                 }}
@@ -653,7 +653,6 @@ const LiveKitAvatarVideo = ({ token, avatarId, voiceId, knowledgeId, language, c
         )}
       </div>
 
-      {/* Add this at the end of the component, just before the closing div */}
       <style>{`
         @keyframes paper-plane {
           0% {

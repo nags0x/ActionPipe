@@ -27,17 +27,17 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
   useEffect(() => {
     const initializeAvatar = async () => {
       try {
-        // Log the API key for debugging (remove in production)
+
         console.log("Using API key:", token);
         
-        // Use the API key directly in the x-api-key header as shown in the documentation
+
         const tokenResponse = await fetch('https://api.heygen.com/v1/streaming.create_token', {
           method: 'POST',
           headers: {
-            'x-api-key': token, // Use x-api-key instead of Authorization
+            'x-api-key': token, 
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({}) // Empty body is sufficient according to docs
+          body: JSON.stringify({}) 
         });
         
         console.log("Token response status:", tokenResponse.status);
@@ -48,12 +48,12 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
           throw new Error(`Failed to get session token: ${tokenResponse.status} - ${responseText}`);
         }
         
-        // Parse the response text as JSON
+
         const tokenData = JSON.parse(responseText);
         console.log("Token data:", tokenData);
         
-        // Use the unique session token for this streaming session
-        const sessionToken = tokenData.data.token;
+
+        const sessionToken = tokenData.data.token; //regenForeachSession as per docs
         const avatar = new StreamingAvatar({ token: sessionToken });
         
         // Set up event listeners
@@ -121,7 +121,7 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
           setIsLoading(false);
         }
 
-        // Start voice chat automatically
+        // Start voice chat automatically --doesnt work for now lol
         await avatar.startVoiceChat({
           isInputAudioMuted: false
         });
@@ -145,7 +145,7 @@ const AvatarVideo = ({ token, avatarId, knowledgeId, voiceId, language, children
     if (streamingAvatar) {
       streamingAvatar.speak({ 
         text,
-        task_type: TaskType.TALK // This will use the OpenAI integration through HeyGen
+        task_type: TaskType.TALK 
       });
     }
   };

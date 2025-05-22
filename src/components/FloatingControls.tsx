@@ -26,12 +26,8 @@ const FloatingControls = ({
   onMute,
   onVideoToggle,
   onChatToggle,
-  isListening,
-  isTalking,
-  isSessionReady,
   isMuted,
   isVideoOff,
-  showChat
 }: FloatingControlsProps) => {
   const [isActive, setIsActive] = useState(false);
   
@@ -43,14 +39,6 @@ const FloatingControls = ({
   const handleClose = () => {
     setIsActive(false);
     if (onClose) onClose();
-  };
-  
-  const handleTalk = () => {
-    if (onTalk) onTalk();
-  };
-  
-  const handleRepeat = () => {
-    if (onRepeat) onRepeat();
   };
   
   return (

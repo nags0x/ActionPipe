@@ -22,7 +22,6 @@ const Index = () => {
 
   return (
     <div className="relative">
-      {/* Avatar video takes up the full viewport */}
       <LiveKitAvatarVideo 
         token={apiKey}
         avatarId="Wayne_20240711"
@@ -30,7 +29,7 @@ const Index = () => {
         knowledgeId="05703e278ac7498b80ded336fdc0c94d"
         language="en-US"
       />
-      
+
       <GitHubLink />
     </div>
   );
