@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="public/favicon.png" alt="Logo" width="250" height="250"/>
+  <img src="public/logo4.png" alt="Logo" width="250" height="250"/>
 </p>
 
 <p align="center" style="font-family: 'Press Start 2P', monospace;">
